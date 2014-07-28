@@ -1,0 +1,133 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import javaProb.GeneralProblem;
+
+import designProblem.atmDesign.ATM;
+import designProblem.atmDesign.AccountDetails;
+import designProblem.atmDesign.Card;
+
+public class ATMSimulation {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
+	{
+		
+		System.out.println(GeneralProblem.printMinimumPathDirection("SSSNEEEW"));
+		
+		//System.out.println(GeneralProblem.numOfWayTOReachNthstep(4));
+		
+		//System.out.println(GeneralProblem.fibbonacciRec(6));
+		System.out.println("Step count"+GeneralProblem.countREC);
+	
+		System.out.println(GeneralProblem.GCD(3, 15));
+		//System.out.println("Step count"+GeneralProblem.countDP);
+		
+		/*int atmID = 100;
+
+		String BankName = "Federal Banak Of India";
+
+		ATM atmInst = new ATM(atmID, BankName);
+		System.out.println("Welcome to " + BankName + " ATM"
+				+ "\n     Please insert Yor Card");
+
+		// User Card Instance
+		Card currCardDetails = new Card(100, 10002, 111);
+
+		atmInst.InsertCard(currCardDetails);
+		try {
+			int pin = atmInst.AskForPin();
+			currCardDetails.setPin(pin);
+			System.out.println("Authenticating details........");
+			AccountDetails det = atmInst.Authentication(currCardDetails);
+			if (det != null) {
+				// **********************Show Welcome
+				// Message*********************************/
+				/*System.out.println("Hi !  " + det.getName() + "\n");
+				int option = -1;
+				System.out
+						.println("Choose option   1. WIthdrwal  \n\t\t2. Account Balance\n\t\t3. Change Pinn\n\t\t4. Despot\n\t\t5. Exit");
+				do {
+					BufferedReader buff = new BufferedReader(
+							new InputStreamReader(System.in));
+					option = Integer.parseInt(buff.readLine());
+					switch (option) {
+					case 1:
+						System.out
+								.println("Selected for Withdrawl\nPlease Enter an Amount to witdraw");
+						BufferedReader buff1 = new BufferedReader(
+								new InputStreamReader(System.in));
+						int amounnt = Integer.parseInt(buff1.readLine());
+						if (atmInst != null) {
+							System.out
+									.println("Processing your request...........");
+							System.out.println("Please Collect Your Cash "
+									+ atmInst.whitrwalAmt(amounnt));
+						}
+
+						break;
+					case 2:
+						System.out.println("Selected for Account Balance\n");
+						if (atmInst != null) {
+							System.out
+									.println("Processing your request...........");
+							System.out
+									.println("Your Saving Account Balance is "
+											+ atmInst.getBalance() + " INR");
+						}
+						break;
+					case 3:
+						System.out
+								.println("Selected for Change Pin\nPlease Enter your desired new PIN\n");
+						BufferedReader buff2 = new BufferedReader(
+								new InputStreamReader(System.in));
+						int newPIN = Integer.parseInt(buff2.readLine());
+						if (atmInst != null) {
+							System.out
+									.println("Processing your request...........");
+							System.out.println("Your New PIN IS "
+									+ atmInst.changePin(newPIN));
+						}
+						break;
+					case 4:
+						System.out
+								.println("Selected for Deposit\nPlease Enter an Amount to Deposit");
+						BufferedReader buff3 = new BufferedReader(
+								new InputStreamReader(System.in));
+						int depAmounnt = Integer.parseInt(buff3.readLine());
+						if (atmInst != null) {
+							System.out
+									.println("Processing your request...........");
+							System.out
+									.println("You have Deposited "
+											+ depAmounnt
+											+ " INR "
+											+ "and your current account balance is now "
+											+ atmInst.Deposit(depAmounnt)
+											+ " INR");
+						}
+
+						break;
+					case 5:
+						System.out.println("Selected for exit");
+						return;
+					}
+				} while (option != 1 || option != 2 || option != 3);
+
+			} else {
+				System.out.println("Not a Valid Pin");
+			}
+		} catch (NumberFormatException e) {
+
+		} catch (IOException e) {
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+
+		}*/
+
+	}
+
+}

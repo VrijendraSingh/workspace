@@ -1,0 +1,157 @@
+package javaProb;
+
+public class GeneralProblem 
+{
+
+	
+	
+//	 A person wants to go from origin to a particular location, he can move in only 4 directions(i.e East, West, North, South) but his friend gave him a long route, help a person to find minimum Moves so that he can reach to the destination.
+//	 Input – NESNWES
+//	 Output – E
+//	 You need to print the lexicographically sorted string. Assume the string will have only ‘E’ ‘N’ ‘S’ ‘W’ characters.
+//	 E.g – SSSNEEEW
+//	 output – EESS
+	
+	public static String printMinimumPathDirection(String input)
+	{
+		char[] chInput = input.toCharArray();
+		
+		int x = 0; // For E add +1 and W add -1
+		int y = 0; // For N add +1 and S add -1
+		
+		for (char ch:chInput) {
+			switch(ch) {
+			case 'E':
+				x = x +1;
+				break;
+			case 'W':
+				x = x -1;
+				break;
+			case 'N':
+				y = y +1;
+				break;
+			case 'S':
+				y = y-1;
+				break;
+			}
+		}
+		
+		String output = "";
+		// For Lexical Printing E then N then S then W
+		if (x > 0) {
+			for (int i = 0; i < x; i++ ) {
+				output = output + "E";
+			}
+		} 
+		
+		if (y > 0) { 
+			for (int i = 0; i < y; i++ ) {
+				output = output + "N";
+			}
+		}
+		
+		if (y < 0) {
+			for (int i = 1; i <= (-y); i++ ) {
+				output = output + "S";
+			}
+		}
+		
+		if (x < 0) {
+			for (int i = 1; i <= (-y); i++ ) {
+				output = output + "S";
+			}
+		}
+		return output;
+	}
+	
+	//Simple dp question that a frog can take 1 or 2 step. Number of ways to reach nth position
+	
+	public static int numOfWayTOReachNthstep(int numStep)
+	{
+
+		int[] numWays = new int[numStep];
+		numWays[0] = 0;
+		numWays[1] = 1;
+		numWays[2] = 2;
+
+		if (numStep == 0) {
+			return numWays[0];
+		}
+		if (numStep == 1) {
+			return numWays[1];
+		}
+		if (numStep == 2) {
+			return numWays[2];
+		}
+		for (int i  = 3; i < numStep; i++) {
+			 numWays[i] = numWays[i-1] +numWays[i-2] ;
+		}
+		
+		return numWays[numStep - 1] + numWays[numStep-2];
+			
+	}
+	
+	
+	public static int factorial(int inputN)
+	{
+		int stepCount = 0;
+		int res = 1;
+		if (inputN == 0) {
+			return 1;
+		}
+		
+		for (int i = 1; i <= inputN; i++) {
+			stepCount++;
+			res = res*i;
+		}
+		System.out.println("stepCount :"+stepCount);
+		return res;
+	}
+	
+	
+	public static int factorialRec(int inputN)
+	{
+		System.out.println("stepCount :");
+		if (inputN == 0) {
+			return 1;
+		} else {
+			return inputN*factorialRec(inputN-1);
+		}
+		
+	}
+	
+	public static int  count = 0;
+	public static int fibbonacciRec(int input) 
+	{
+		if (input == 0) {
+			//System.out.println("0");
+			return 0;
+		}
+		if (input == 1) {
+			//System.out.println("1");
+			return 1;
+		}
+		count++;
+		return fibbonacciRec(input - 1)+ fibbonacciRec(input-2);
+		
+	}
+	
+	
+	
+	public static int fibbonacciDP(int input) 
+	{
+		int[] saveRes = new int[32000];
+		if (input == 0) {
+			saveRes[0]  =0;
+			return 0;
+		}
+		if (input == 1) {
+			saveRes[0]  =1;
+			return 1;
+		}
+		count++;
+		return fibbonacciRec(input - 1)+ fibbonacciRec(input-2);
+		
+	}
+	
+}

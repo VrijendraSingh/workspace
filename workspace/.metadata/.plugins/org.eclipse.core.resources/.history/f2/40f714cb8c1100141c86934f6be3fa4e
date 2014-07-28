@@ -1,0 +1,189 @@
+package javaProb;
+
+public class LinkedListProblems 
+{
+
+	public LinkedListProblems() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public class Node 
+	{
+		int data;
+		public Node next = null;
+		public Node(int num) 
+		{ 
+			data = num ;
+		}	
+	}
+	
+	public Node first;
+
+	// Looping problem in details
+	
+	
+	
+	// Deleting a node
+	public void deleteNode(int data)
+	{
+		if (first == null)
+			return;
+		Node temp = first;
+		if (temp.data == data) {
+			temp = temp.next;
+			first = temp;
+			return;
+		}
+		while (temp.next != null) {
+			if (temp.next.data == data) {
+				temp.next = temp.next.next;
+				return;
+			}
+			temp = temp.next;
+		}
+	}
+	
+	
+	// Reversing a linklist
+	public void reverseLinkedlist()
+	{
+		if (first != null) {
+			Node p = null;
+			Node r = null;
+			while (first != null) {
+				p = first;
+				first = first.next;
+				p.next = r;
+				r = p;
+			}
+			first = r;
+		}
+	}
+	
+	// Inserting an element
+	public void insertAtEnd(int data)
+	{
+	
+		Node item = new Node(data);
+		
+		if (first == null) {
+			first = item;
+		} else {
+			Node temp = first;
+			while (temp.next != null) {
+				temp = temp.next;
+			}
+			temp.next = item;
+		}
+	}
+	
+	
+	
+	public void insertInOrder(int data)
+	{
+		Node node = new Node(data);
+		if (first == null) {
+			first = node;
+			return;
+		}
+		if ((int)first.data > (int)data) {
+			node.next = first;
+			first = node;
+			return;
+			
+		}
+		Node temp = first;
+		while (temp.next != null && (int)temp.next.data <= (int)data) {
+			temp = temp.next;
+		}
+		Node temp2 = temp.next;
+		temp.next = node;
+		node.next = temp2;
+	}
+	
+	// Printing linkedlist
+	public void printLinkedlist()
+	{
+		Node temp = first;
+		while (temp != null) {
+			System.out.print("->"+temp.data);
+			temp = temp.next;
+		}
+		System.out.print("\n");
+	}
+	
+	
+	//Swap kth Node from begining to last 
+	public  void SwapKthNodeFromBeginToLast(int k)
+	{
+		Node temp = first;
+		if (first == null)
+			return;
+		int i = 0;
+		while(i < k - 2) {
+			temp = temp.next;
+			i++;
+		}
+		Node kthBegin = temp;
+		
+		temp = first;
+		i = 0;
+//		while (i < ) {
+//		}	
+	}
+	
+	
+	
+	public Node SearchElement(int searchKey)
+	{
+		if (first == null) {
+			return first;
+		}
+		Node temp = first;
+		while (temp != null) {
+			if (temp.data == searchKey) {
+				return temp;
+			}
+			temp = temp.next;
+		}
+		return null;
+	}
+	
+	public int getCount(Node first)
+	{
+		int count = 0;
+		Node temp = first;
+		while (temp != null) {
+			temp = temp.next;
+			count++;
+		}
+		return count;
+	}
+	
+	
+	public Node getMergingPoint(Node first, Node second)
+	{
+		Node mergingPt = null;
+		int len1 = getCount(first);
+		int len2 = getCount(second);
+		if (len1 > len2) {
+			int diff = len1-len2;
+			
+			// traverse first list 
+			while (diff > 0) {
+				first = first.next;
+				diff--;
+			}
+		} 
+		if (len2 > len1) {
+			int diff = len2-len1;
+			
+			// traverse second list 
+			while (diff > 0) {
+				second = second.next;
+				diff--;
+			}
+		}
+		return mergingPt;
+	}
+}

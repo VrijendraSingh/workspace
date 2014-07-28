@@ -1,0 +1,156 @@
+package designProblem.atmDesign;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class ATM {
+	@SuppressWarnings("unused")
+	private int atmID = 100;
+
+	@SuppressWarnings("unused")
+	private String BankName = "Federal Banak Of India";
+
+	private Card currCardDetails = null;
+	private CardReader cardReader = null;
+
+	boolean isValidUser = false;
+
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static final String DB_URL = "jdbc:mysql://BLR1-VIJENDRA-D.sv.us.sonicwall.com/bank";
+
+	static final String USER = "root";
+	static final String PASS_WORD = "qwerty123#";
+	private Connection con = null;
+	private Statement stmt = null;
+	private AccountDetails AccDet = null;
+
+	private BankTransaction bankTrans = null;
+
+	public BankTransaction getBankTrans() {
+		return bankTrans;
+	}
+
+	private boolean connectDataBase() {
+		boolean connSucc = false;
+		// Register JDBC driver for SQL
+		try {
+			//
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Open a connection
+			con = DriverManager.getConnection(DB_URL, USER, PASS_WORD);
+			if (con != null) {
+				connSucc = true;
+			}
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return connSucc;
+	}
+
+	public ATM(int atmId, String BankName) {
+		this.BankName = BankName;
+		this.atmID = atmId;
+		cardReader = new CardReader();
+	}
+
+	public void InsertCard(Card CardDetails) {
+
+		if (currCardDetails != null)
+			currCardDetails = null;
+		currCardDetails = CardDetails;
+
+	}
+
+	public int AskForPin() throws NumberFormatException, IOException {
+		System.out.print("Please Enter Your Pin\n");
+		BufferedReader buff = new BufferedReader(new InputStreamReader(
+				System.in));
+		int pin = Integer.parseInt(buff.readLine());
+		return pin;
+	}
+
+	public AccountDetails Authentication(Card currCardDetails) throws Exception {
+
+		boolean isAutSucc = false;
+		int AccountNumber = currCardDetails.getAccountNumber();
+
+		// boolean isConn = connectDataBase();
+		bankTrans = new BankTransaction(AccountNumber);
+		// Creating a Statement to execuet query.
+		if (bankTrans != null) {
+			Connection con = bankTrans.getCon();
+			if (con != null) {
+				stmt = con.createStatement();
+				if (con != null) {
+					String sql = "USE bank";
+
+					stmt.executeQuery(sql);
+					sql = "select * from accounts Where AcoountNo = "
+							+ AccountNumber;
+					ResultSet res = stmt.executeQuery(sql);
+					if (res != null) {
+						while (res.next()) {
+							int atmPinfromDB = res.getInt("ATMCardPin");
+							if (atmPinfromDB == currCardDetails.getPin()) {
+								isValidUser = true;
+							} else {
+								bankTrans.discoonect();
+								bankTrans = null;
+								return null;
+							}
+							AccDet = new AccountDetails();
+							AccDet.setAtmCardNo(res.getInt("ATMCardNo"));
+							AccDet.setName(res.getString("Name"));
+							AccDet.setTransPass(res
+									.getString("OnlineTransactionPass"));
+							AccDet.setAccountBalance(res
+									.getInt("AccountBalance"));
+							AccDet.setAtmPin(res.getInt("ATMCardPin"));
+						}
+					}
+				}
+			}
+		}
+
+		return AccDet;
+	}
+
+	public void CancelTransaction() {
+		isValidUser = false;
+
+	}
+
+	public int getBalance() throws SQLException {
+
+		return bankTrans.getBalance();
+
+	}
+
+	public int changePin(int newPin) throws SQLException {
+
+		return bankTrans.changePin(newPin);
+
+	}
+
+	public int whitrwalAmt(int amountWithdrl) throws SQLException {
+		return bankTrans.WithDrawl(amountWithdrl);
+	}
+
+	// Deposit
+	public int Deposit(int amoutDeposit) throws SQLException {
+		return bankTrans.Deposit(amoutDeposit);
+	}
+}

@@ -1,0 +1,37 @@
+
+public class TestClass {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
+	{
+		System.out.println(gcdREC(2,0));
+	}
+	
+	
+	
+	public static long gcdDP(int a, int b)
+	{
+		long[][] mat= new long[a+1][b+1];
+		mat[0][0] = 0;
+		mat[1][0] = 1;
+		mat[0][1] = 1;
+		mat[1][1] = 1;
+		for (int j = 0; j<b+1; j++ ) {
+			
+		}
+		return 0;
+	}
+	
+	
+	public static long gcdREC(long a, long b)
+	{
+		if (b == 0) {
+			return a;
+		} else {
+			return gcdREC(b,a%b);
+		}
+	}
+
+}
